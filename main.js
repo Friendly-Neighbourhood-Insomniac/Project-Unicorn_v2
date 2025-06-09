@@ -55,12 +55,7 @@ let assetsLoaded = false;
 let uiImagesLoaded = 0;
 let typewriterInterval = null; // For managing the typewriter effect
 // Optionally, add URL remapping if needed
-loadingManager.setURLModifier((url) => {
-    if (url.includes('Textures/colormap.png')) {
-        return 'https://play.rosebud.ai/assets/3D_playground_character_colormap.png?lWvg';
-    }
-    return url;
-});
+
 
 const parentDiv = document.getElementById('renderDiv');
 let canvas = document.getElementById('threeRenderCanvas');
@@ -552,17 +547,17 @@ function createTerrain() {
     // Create simple flat plane for visuals
     const geometry = new THREE.PlaneGeometry(size, size);
     const texture = textureLoader.load('Public/Textures/Grass-texture.jpg');
-    const normalMap = textureLoader.load('https://play.rosebud.ai/assets/3D_playground_grass_normal.png?wCr9');
+    //const normalMap = textureLoader.load('https://play.rosebud.ai/assets/3D_playground_grass_normal.png?wCr9');
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(50, 50); // Increased texture repeat to maintain proper scaling
     texture.encoding = THREE.sRGBEncoding;
 
-    normalMap.wrapS = normalMap.wrapT = THREE.RepeatWrapping;
-    normalMap.repeat.set(20, 20);
+    //normalMap.wrapS = normalMap.wrapT = THREE.RepeatWrapping;
+    //normalMap.repeat.set(20, 20);
 
     const material = new THREE.MeshStandardMaterial({
         map: texture,
-        normalMap: normalMap,
+        //normalMap: normalMap,
         normalScale: new THREE.Vector2(2, 2),
         roughness: 0.8,
         metalness: 0.1,
@@ -1548,7 +1543,8 @@ const bunnies = createBunnies();
 const sheep = spawnSheep();
 // Function to load and place the school hall
 function loadSchoolHall() {
-    const schoolHallUrl = "https://play.rosebud.ai/assets/School Hall.glb?hM2Z";
+    const schoolHallUrl = "Public/Models/School_Hall.glb";
+    gltfLoader.setDRACOLoader(dracoLoader);
     gltfLoader.load(schoolHallUrl, (gltf) => {
         const model = gltf.scene;
         const initialScale = 150; // Upscaled to 150
